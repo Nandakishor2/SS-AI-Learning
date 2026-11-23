@@ -1,0 +1,11 @@
+qid,branching,agent_pass,agent_latency_ms,agent_tokens,agent_cost_usd,agent_laps,agent_stop,wf_pass,wf_latency_ms,wf_tokens,wf_cost_usd
+Q01,True,True,4766.4,2518,0.001657,3,answered,True,1665.6,584,0.000578
+Q02,True,True,4120.6,2486,0.001577,3,answered,True,1815.0,615,0.000653
+Q03,True,True,4547.6,2539,0.001705,3,answered,True,1376.4,546,0.000483
+Q04,True,True,4426.7,2401,0.001497,3,answered,True,1572.1,557,0.000528
+Q05,True,True,4033.7,2423,0.001543,3,answered,True,2153.9,707,0.000898
+Q06,True,True,4132.4,2514,0.001718,3,answered,True,1561.3,569,0.000556
+Q07,True,True,4201.1,2504,0.001684,3,answered,True,2382.7,696,0.00088
+Q08,True,True,4391.3,2392,0.001532,3,answered,True,1915.7,667,0.000867
+Q09,False,True,4588.7,2597,0.001833,3,answered,True,2510.0,731,0.000952
+Q10,True,True,4417.2,2418,0.001555,3,answered,True,1612.3,572,0.000559

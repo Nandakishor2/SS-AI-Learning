@@ -1,0 +1,15 @@
+{
+  "_comment": "Employee HR records. tenure_months is derived at load time from hire_date vs AS_OF (2026-11-16) in tools.py, so it is deterministic. jurisdiction is one of the enum values APAC/EMEA/NA/LATAM/UK/ANZ.",
+  "employees": {
+    "E001": {"name": "Aya Tanaka",      "jurisdiction": "NA",    "tier": "Tier 1", "hire_date": "2026-05-16", "caregiver_role": "primary",   "planned_absence_days": null},
+    "E002": {"name": "Marcus Reed",     "jurisdiction": "NA",    "tier": "Tier 2", "hire_date": "2024-11-16", "caregiver_role": "primary",   "planned_absence_days": null},
+    "E003": {"name": "Priya Nair",      "jurisdiction": "NA",    "tier": "Tier 2", "hire_date": "2022-09-16", "caregiver_role": "primary",   "planned_absence_days": null},
+    "E004": {"name": "Diego Alvarez",   "jurisdiction": "LATAM", "tier": "Tier 1", "hire_date": "2026-07-16", "caregiver_role": "primary",   "planned_absence_days": null},
+    "E005": {"name": "Lucia Marin",     "jurisdiction": "LATAM", "tier": "Tier 2", "hire_date": "2025-03-16", "caregiver_role": "primary",   "planned_absence_days": null},
+    "E006": {"name": "Wei Chen",        "jurisdiction": "APAC",  "tier": "Tier 1", "hire_date": "2026-08-16", "caregiver_role": null,        "planned_absence_days": null},
+    "E007": {"name": "Hana Suzuki",     "jurisdiction": "APAC",  "tier": "Tier 2", "hire_date": "2024-05-16", "caregiver_role": null,        "planned_absence_days": null},
+    "E008": {"name": "Sofia Rossi",     "jurisdiction": "EMEA",  "tier": "Tier 2", "hire_date": "2025-05-16", "caregiver_role": null,        "planned_absence_days": null},
+    "E009": {"name": "Oliver Grant",    "jurisdiction": "UK",    "tier": "Tier 2", "hire_date": "2023-07-16", "caregiver_role": null,        "planned_absence_days": 10},
+    "E010": {"name": "Noah Williams",   "jurisdiction": "ANZ",   "tier": "Tier 1", "hire_date": "2025-03-16", "caregiver_role": null,        "planned_absence_days": null}
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "agreement_before": {
+    "pct": 86.20689655172414,
+    "agree": 25,
+    "n": 29,
+    "version": "v1"
+  },
+  "agreement_after": {
+    "pct": 86.20689655172414,
+    "agree": 25,
+    "n": 29,
+    "version": "v2"
+  },
+  "v1_disagreements": [
+    {
+      "case_id": "C02",
+      "mode": "M1_false_refusal",
+      "human": "FAIL",
+      "judge": "PASS",
+      "judge_reason": "The policy context does not provide details for primary caregiver leave duration/qualifications in North America, so declining to answer is correct.",
+      "question": "In North America, what parental leave does a primary caregiver with about two years of service qualify for?",
+      "answer": "I do not have sufficient information in the provided leave policy documents to answer this question. The policy mentions \"Primary Caregiver Leave\" for North America [Chunk: struct_HR-208_NA_2, Policy: HR-208, Section: 2, Region: NA], but does not specify the duration or other qualifications for primary caregivers in that region."
+    },
+    {
+      "case_id": "C03",
+      "mode": "M1_false_refusal",
+      "human": "FAIL",
+      "judge": "PASS",
+      "judge_reason": "The policy context only provides a heading for 'Primary Caregiver Leave' but no details on the actual entitlement.",
+      "question": "What paid leave does a primary caregiver with 2 years of service get in North America under HR-208?",
+      "answer": "I do not have sufficient information in the provided leave policy documents to answer this question."
+    },
+    {
+      "case_id": "C17",
+      "mode": "M2_region_disambiguation",
+      "human": "FAIL",
+      "judge": "PASS",
+      "judge_reason": "The policy details sick pay eligibility and duration, but not a specific number of sick days an employee is entitled to take.",
+      "question": "How many sick days am I entitled to?",
+      "answer": "I do not have sufficient information in the provided leave policy documents to answer this question."
+    },
+    {
+      "case_id": "C22",
+      "mode": "M3_tenure_boundary",
+      "human": "FAIL",
+      "judge": "PASS",
+      "judge_reason": "The assistant correctly identified the NA policy and applied the 'Standard' tenure band (12-36 months) for 3 years (36 months) of service.",
+      "question": "I'm in Toronto and just had a baby as the primary caregiver with 3 years in — how many weeks paid and any unpaid extension?",
+      "answer": "For employees in North America with 3 years (36 months) of continuous service, the parental leave entitlement is 14 weeks of full paid leave [Chunk: struct_HR-208_NA_3, Policy: HR-208, Section: 2.1, Region: NA]. An additional 6 weeks of unpaid extension is allowed [Chunk: struct_HR-208_NA_3, Policy: HR-208, Section: 2.1, Region: NA]."
+    }
+  ],
+  "v2_disagreements": [
+    {
+      "case_id": "C02",
+      "mode": "M1_false_refusal",
+      "human": "FAIL",
+      "judge": "PASS",
+      "judge_reason": "The retrieved context genuinely lacks the primary caregiver leave details for North America, making refusal correct."
+    },
+    {
+      "case_id": "C03",
+      "mode": "M1_false_refusal",
+      "human": "FAIL",
+      "judge": "PASS",
+      "judge_reason": "The retrieved context genuinely lacks the primary-caregiver leave entitlement details; refusing is correct."
+    },
+    {
+      "case_id": "C17",
+      "mode": "M2_region_disambiguation",
+      "human": "FAIL",
+      "judge": "PASS",
+      "judge_reason": "The policy describes sick pay eligibility and duration, but not a total entitlement to a number of sick days."
+    },
+    {
+      "case_id": "C22",
+      "mode": "M3_tenure_boundary",
+      "human": "FAIL",
+      "judge": "PASS",
+      "judge_reason": "Employee's 36 months of service falls squarely within the '12 - 36 months' category, as per the policy. The assistant correctly provides the corresponding 14 weeks paid and 6 weeks unpaid leave."
+    }
+  ]
+}

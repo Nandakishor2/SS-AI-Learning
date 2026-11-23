@@ -1,0 +1,15 @@
+{
+  "agent": {
+    "pass_rate": 1.0,
+    "p50_latency_ms": 4404.25,
+    "total_tokens": 24792,
+    "cost_per_q_usd": 0.0016301
+  },
+  "workflow": {
+    "pass_rate": 1.0,
+    "p50_latency_ms": 1740.3,
+    "total_tokens": 6244,
+    "cost_per_q_usd": 0.0006954
+  },
+  "n": 10
+}

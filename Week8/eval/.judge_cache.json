@@ -1,0 +1,234 @@
+{
+  "v1:C01:a71434c94c72": {
+    "verdict": "PASS",
+    "reason": "The answer correctly identifies the region and provides all relevant carry-over caps based on probation status/tier, addressing the missing detail."
+  },
+  "v1:C02:ae6957851e60": {
+    "verdict": "PASS",
+    "reason": "The policy context does not provide details for primary caregiver leave duration/qualifications in North America, so declining to answer is correct."
+  },
+  "v1:C03:323e1da0c739": {
+    "verdict": "PASS",
+    "reason": "The policy context only provides a heading for 'Primary Caregiver Leave' but no details on the actual entitlement."
+  },
+  "v1:C17:323e1da0c739": {
+    "verdict": "PASS",
+    "reason": "The policy details sick pay eligibility and duration, but not a specific number of sick days an employee is entitled to take."
+  },
+  "v1:C18:323e1da0c739": {
+    "verdict": "FAIL",
+    "reason": "The assistant should have identified the missing region and asked for it, rather than giving a flat refusal, as policy exists for LATAM."
+  },
+  "v1:C19:323e1da0c739": {
+    "verdict": "FAIL",
+    "reason": "The context contains information about Section 3.2 of HR-207 (APAC), which is part of Section 3. The assistant should have provided this information instead of declining."
+  },
+  "v1:C22:90e1ba252baa": {
+    "verdict": "PASS",
+    "reason": "The assistant correctly identified the NA policy and applied the 'Standard' tenure band (12-36 months) for 3 years (36 months) of service."
+  },
+  "v1:C29:932d22e89408": {
+    "verdict": "PASS",
+    "reason": "The answer correctly identifies the region, service tier, and corresponding paid leave duration from the policy."
+  },
+  "v1:C20:b7b06c6c5b5c": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the carry-over caps for both EMEA and APAC, detailing the variations within APAC as per policy."
+  },
+  "v1:C21:f35f5c6801a2": {
+    "verdict": "PASS",
+    "reason": "The answer correctly extracts and presents the carry-over rules for both APAC and EMEA regions as detailed in the policy context."
+  },
+  "v1:C27:dc355fb3b388": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the effective date for HR-209 in ANZ offices as found in the policy context."
+  },
+  "v1:C28:f35bc0d8fa0d": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the effective date of HR-207 in EMEA, which is explicitly provided in the policy context."
+  },
+  "v1:C04:06ee243ce845": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the rollover limit (10 days) and the forfeiture date (March 31st) as per the policy."
+  },
+  "v1:C05:2d49f968b334": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the standard carry-over cap of 10 days and clarifies its applicability based on the policy context."
+  },
+  "v1:C06:4adabd62fcc6": {
+    "verdict": "PASS",
+    "reason": "The assistant correctly identified the carry-over cap of 3 days for a Tier 1 probationary employee in APAC from the policy."
+  },
+  "v1:C07:fec9697a09fb": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the paternity leave duration for non-birthing parents in LATAM as 15 days, matching the policy."
+  },
+  "v1:C08:05bb7b416166": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the entitlement (4 weeks) and service requirement (90 days) directly from the policy."
+  },
+  "v1:C09:4e1c579b4218": {
+    "verdict": "PASS",
+    "reason": "Correctly identified EMEA region from Berlin and stated the exact annual leave entitlement (25 days) as per policy."
+  },
+  "v1:C10:2bbcbf2fcbc6": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the number of days for chronic health consultation leave as per the policy."
+  },
+  "v1:C11:c28f0b6912d3": {
+    "verdict": "PASS",
+    "reason": "Correctly states personal leave days (12) and carer's conversion cap (8) for ANZ employees in their second year of service, matching policy."
+  },
+  "v1:C12:a825a6b1142c": {
+    "verdict": "PASS",
+    "reason": "The answer correctly identifies the required certification and the pay structure after 4 weeks, matching the policy."
+  },
+  "v1:C13:6188a238e54b": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states 100% salary for 10 days sick leave, as 10 days falls within the 'up to 4 weeks' full pay eligibility for 8+ day absences."
+  },
+  "v1:C14:b0e7ec9bf269": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the sick pay entitlements for absences exceeding 8 days, matching the policy context."
+  },
+  "v1:C15:06db263fda98": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states no certificate is needed for two days, as the policy requires it only for leave exceeding two days."
+  },
+  "v1:C16:be7d039b950a": {
+    "verdict": "PASS",
+    "reason": "The assistant correctly identified the annual personal leave and carer's cap for Year 2+ ANZ staff from the policy."
+  },
+  "v1:C23:323e1da0c739": {
+    "verdict": "PASS",
+    "reason": "The policy context does not contain any information about sabbatical leave, so declining to answer is correct."
+  },
+  "v1:C24:323e1da0c739": {
+    "verdict": "PASS",
+    "reason": "The policy context does not contain any information about 'remote work stipend' for APAC or any other region."
+  },
+  "v1:C25:323e1da0c739": {
+    "verdict": "PASS",
+    "reason": "The question asks about HR-210 and jury duty leave, but the provided context only contains HR-207 and HR-209, and no mention of jury duty."
+  },
+  "v1:C26:323e1da0c739": {
+    "verdict": "PASS",
+    "reason": "The policy context does not contain any information regarding sabbatical caps for EMEA staff or section 5 of HR-207."
+  },
+  "v2:C01:a71434c94c72": {
+    "verdict": "PASS",
+    "reason": "Correctly identifies the relevant policy and provides all conditional answers based on missing employee details."
+  },
+  "v2:C02:ae6957851e60": {
+    "verdict": "PASS",
+    "reason": "The retrieved context genuinely lacks the primary caregiver leave details for North America, making refusal correct."
+  },
+  "v2:C03:323e1da0c739": {
+    "verdict": "PASS",
+    "reason": "The retrieved context genuinely lacks the primary-caregiver leave entitlement details; refusing is correct."
+  },
+  "v2:C17:323e1da0c739": {
+    "verdict": "PASS",
+    "reason": "The policy describes sick pay eligibility and duration, but not a total entitlement to a number of sick days."
+  },
+  "v2:C18:323e1da0c739": {
+    "verdict": "FAIL",
+    "reason": "The context contains primary caregiver leave details for LATAM. A flat refusal is an avoidable dead-end when the region is missing but information exists."
+  },
+  "v2:C19:323e1da0c739": {
+    "verdict": "FAIL",
+    "reason": "The context for HR-207 APAC contains section 3.2, which covers 'Probationary Employee Carry-Over Cap'. The assistant should have provided this information instead of a flat refusal."
+  },
+  "v2:C22:90e1ba252baa": {
+    "verdict": "PASS",
+    "reason": "Employee's 36 months of service falls squarely within the '12 - 36 months' category, as per the policy. The assistant correctly provides the corresponding 14 weeks paid and 6 weeks unpaid leave."
+  },
+  "v2:C29:932d22e89408": {
+    "verdict": "PASS",
+    "reason": "The answer correctly applies the LATAM primary caregiver policy for 8 months of service, matching the 12-week entitlement."
+  },
+  "v2:C20:b7b06c6c5b5c": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the carry-over caps for both EMEA and APAC, allowing the user to understand the differences."
+  },
+  "v2:C21:f35f5c6801a2": {
+    "verdict": "PASS",
+    "reason": "The answer correctly summarizes the carry-over rules for both APAC and EMEA regions as detailed in the provided policy context."
+  },
+  "v2:C27:dc355fb3b388": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the effective date directly from the policy context provided."
+  },
+  "v2:C28:f35bc0d8fa0d": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the effective date directly from the policy context."
+  },
+  "v2:C04:06ee243ce845": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the rollover limit (10 days) and the expiration date (March 31st) as per the policy."
+  },
+  "v2:C05:2d49f968b334": {
+    "verdict": "PASS",
+    "reason": "The answer correctly identifies the standard carry-over cap of 10 days, directly from the policy context."
+  },
+  "v2:C06:4adabd62fcc6": {
+    "verdict": "PASS",
+    "reason": "The answer correctly identifies the carry-over cap of 3 days for a Tier 1 probationary employee in APAC from the provided policy."
+  },
+  "v2:C07:fec9697a09fb": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the entitlement (15 days) directly from the specified LATAM policy context."
+  },
+  "v2:C08:05bb7b416166": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the entitlement (4 weeks fully paid) and the service requirement (90 days) directly from the policy."
+  },
+  "v2:C09:4e1c579b4218": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the annual leave entitlement for EMEA (Berlin) as 25 days, directly from the provided policy."
+  },
+  "v2:C10:2bbcbf2fcbc6": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the entitlement of up to 5 paid discretionary working days per year for chronic health consultations, directly from the policy."
+  },
+  "v2:C11:c28f0b6912d3": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states both the personal leave days and the carer's conversion cap for the specified service year and region."
+  },
+  "v2:C12:a825a6b1142c": {
+    "verdict": "PASS",
+    "reason": "The answer correctly identifies the required certification and the pay structure after 4 weeks, directly from the policy."
+  },
+  "v2:C13:6188a238e54b": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states 100% salary for 10 days sick leave, aligning with the '8+ days' rule and 'up to 4 weeks' full pay eligibility."
+  },
+  "v2:C14:b0e7ec9bf269": {
+    "verdict": "PASS",
+    "reason": "The answer correctly states the sick pay entitlement (100% for 4 weeks, then 50% for 8 weeks) for absences over 8 days, directly from the policy."
+  },
+  "v2:C15:06db263fda98": {
+    "verdict": "PASS",
+    "reason": "The answer correctly interprets 'exceeding 2 consecutive working days' for a 2-day absence, stating no certificate is needed."
+  },
+  "v2:C16:be7d039b950a": {
+    "verdict": "PASS",
+    "reason": "The answer correctly extracts both the annual personal leave and carer's cap for 'Year 2+' from the provided policy context."
+  },
+  "v2:C23:323e1da0c739": {
+    "verdict": "PASS",
+    "reason": "The retrieved context genuinely lacks any information regarding sabbatical leave, making a refusal correct."
+  },
+  "v2:C24:323e1da0c739": {
+    "verdict": "PASS",
+    "reason": "The provided policy context genuinely lacks information regarding 'remote work stipend' for any region."
+  },
+  "v2:C25:323e1da0c739": {
+    "verdict": "PASS",
+    "reason": "The question asks about HR-210 and jury duty, but the provided context contains neither HR-210 nor jury duty information."
+  },
+  "v2:C26:323e1da0c739": {
+    "verdict": "PASS",
+    "reason": "The retrieved context genuinely lacks information about sabbatical leave and section 5."
+  }
+}
