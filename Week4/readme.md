@@ -22,7 +22,7 @@ The team lead's immediate reaction is to swap the LLM to a bigger model. In this
 | **Chunking Strategy** | Evaluated 350-char sliding window vs. structure-aware header/table chunker. | Standardized on Structure-Aware chunker (28 chunks) with tokenized inverted indices for exact codes. |
 | **Evaluation Set** | 8 ground-truth operational questions evaluating **Hit-in-Top-5**. | **12-Question Golden Set** (7 with exact structural tokens) evaluating **Hit-rate@3** and **p50 query latency**. |
 | **Failure Analysis** | Documented table row splitting in sliding window. | **Formal Failure Taxonomy**: Triage every miss into **[R]** (Retrieval miss), **[G]** (Generation misuse), or **[Not-In-Corpus]** (Valid refusal). |
-| **Primary Deliverable** | `../Week3/results.md` (Hit@5 table, regional filter demo, 3 citations, 3 refusals). | [`results.md`](file:///Users/softsuave/Desktop/AI-Learning-Production/Week4/results.md) (Golden set, R/G tally, before/after Hit@3 & p50 latency, fixed vs. unfixed analysis, shipping decision). |
+| **Primary Deliverable** | `../Week3/results.md` (Hit@5 table, regional filter demo, 3 citations, 3 refusals). | [`results.md`](./results.md) (Golden set, R/G tally, before/after Hit@3 & p50 latency, fixed vs. unfixed analysis, shipping decision). |
 
 ---
 
@@ -109,7 +109,7 @@ Week4/
 
 ## 5. Week 4 Benchmark Results Summary
 
-*Source: produced live by `python -m Services.bench_mark`, written to [`results.md`](file:///Users/softsuave/Desktop/AI-Learning-Production/Week4/results.md). Numbers below reflect the current run; latency jitters slightly between runs since it is dominated by the remote embedding API.*
+*Source: produced live by `python -m Services.bench_mark`, written to [`results.md`](./results.md). Numbers below reflect the current run; latency jitters slightly between runs since it is dominated by the remote embedding API.*
 
 ### 5.1 Golden Set & Failure Tally
 - **Total Questions Evaluated**: 12 real employee inquiries, all answerable from the corpus.

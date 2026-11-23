@@ -1,0 +1,331 @@
+[
+  {
+    "qid": "Q01",
+    "employee_id": "E001",
+    "question": "Employee E001 is taking primary-caregiver leave. How many weeks of fully paid leave are they entitled to?",
+    "trajectory": [
+      {
+        "name": "get_employee_record",
+        "args": {
+          "employee_id": "E001"
+        },
+        "blocked": false
+      },
+      {
+        "name": "get_jurisdiction_rules",
+        "args": {
+          "jurisdiction": "NA"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_employee_record",
+      "get_jurisdiction_rules"
+    ],
+    "outcome_pass": true,
+    "answer": "Employee E001 is entitled to 8 weeks of fully paid primary-caregiver leave, as per policy HR-208, section 2.1.",
+    "laps": 3,
+    "tokens": 2517,
+    "cost_usd": 0.001655,
+    "latency_ms": 5925.0,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q02",
+    "employee_id": "E002",
+    "question": "Employee E002 is taking primary-caregiver leave. How many weeks of fully paid leave are they entitled to?",
+    "trajectory": [
+      {
+        "name": "get_employee_record",
+        "args": {
+          "employee_id": "E002"
+        },
+        "blocked": false
+      },
+      {
+        "name": "get_jurisdiction_rules",
+        "args": {
+          "jurisdiction": "NA"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_employee_record",
+      "get_jurisdiction_rules"
+    ],
+    "outcome_pass": true,
+    "answer": "Employee E002 is entitled to 14 weeks of fully paid primary-caregiver leave, as per policy HR-208, section 2.1.",
+    "laps": 3,
+    "tokens": 2520,
+    "cost_usd": 0.001662,
+    "latency_ms": 4468.6,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q03",
+    "employee_id": "E003",
+    "question": "Employee E003 is taking primary-caregiver leave. How many weeks of fully paid leave are they entitled to?",
+    "trajectory": [
+      {
+        "name": "get_employee_record",
+        "args": {
+          "employee_id": "E003"
+        },
+        "blocked": false
+      },
+      {
+        "name": "get_jurisdiction_rules",
+        "args": {
+          "jurisdiction": "NA"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_employee_record",
+      "get_jurisdiction_rules"
+    ],
+    "outcome_pass": true,
+    "answer": "Employee E003 is entitled to 18 weeks of fully paid primary-caregiver leave, as per policy HR-208, section 2.1.",
+    "laps": 3,
+    "tokens": 2522,
+    "cost_usd": 0.001663,
+    "latency_ms": 5247.1,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q04",
+    "employee_id": "E004",
+    "question": "Employee E004 is taking primary-caregiver leave. How many weeks of fully paid leave are they entitled to?",
+    "trajectory": [
+      {
+        "name": "get_employee_record",
+        "args": {
+          "employee_id": "E004"
+        },
+        "blocked": false
+      },
+      {
+        "name": "get_jurisdiction_rules",
+        "args": {
+          "jurisdiction": "LATAM"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_employee_record",
+      "get_jurisdiction_rules"
+    ],
+    "outcome_pass": true,
+    "answer": "Employee E004 is entitled to 6 weeks of fully paid leave, as per policy HR-208, section 2.1.",
+    "laps": 3,
+    "tokens": 2401,
+    "cost_usd": 0.001497,
+    "latency_ms": 4336.2,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q05",
+    "employee_id": "E005",
+    "question": "Employee E005 is taking primary-caregiver leave. How many weeks of fully paid leave are they entitled to?",
+    "trajectory": [
+      {
+        "name": "get_employee_record",
+        "args": {
+          "employee_id": "E005"
+        },
+        "blocked": false
+      },
+      {
+        "name": "get_jurisdiction_rules",
+        "args": {
+          "jurisdiction": "LATAM"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_employee_record",
+      "get_jurisdiction_rules"
+    ],
+    "outcome_pass": true,
+    "answer": "Employee E005 is entitled to 12 weeks of fully paid leave for primary-caregiver leave, as per policy HR-208, section 2.1.",
+    "laps": 3,
+    "tokens": 2425,
+    "cost_usd": 0.001548,
+    "latency_ms": 4606.5,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q06",
+    "employee_id": "E006",
+    "question": "How many unused annual-leave days may employee E006 carry over into next year?",
+    "trajectory": [
+      {
+        "name": "get_employee_record",
+        "args": {
+          "employee_id": "E006"
+        },
+        "blocked": false
+      },
+      {
+        "name": "get_jurisdiction_rules",
+        "args": {
+          "jurisdiction": "APAC"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_employee_record",
+      "get_jurisdiction_rules"
+    ],
+    "outcome_pass": true,
+    "answer": "Employee E006 may carry over 3 unused annual-leave days into next year, as per policy HR-207, section 3.2.",
+    "laps": 3,
+    "tokens": 2513,
+    "cost_usd": 0.001715,
+    "latency_ms": 4728.7,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q07",
+    "employee_id": "E007",
+    "question": "How many unused annual-leave days may employee E007 carry over into next year?",
+    "trajectory": [
+      {
+        "name": "get_employee_record",
+        "args": {
+          "employee_id": "E007"
+        },
+        "blocked": false
+      },
+      {
+        "name": "get_jurisdiction_rules",
+        "args": {
+          "jurisdiction": "APAC"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_employee_record",
+      "get_jurisdiction_rules"
+    ],
+    "outcome_pass": true,
+    "answer": "Employee E007 may carry over 10 unused annual-leave days into next year, as per policy HR-207, section 3.2.",
+    "laps": 3,
+    "tokens": 2463,
+    "cost_usd": 0.001582,
+    "latency_ms": 4581.6,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q08",
+    "employee_id": "E008",
+    "question": "How many unused annual-leave days may employee E008 carry over into next year?",
+    "trajectory": [
+      {
+        "name": "get_employee_record",
+        "args": {
+          "employee_id": "E008"
+        },
+        "blocked": false
+      },
+      {
+        "name": "get_jurisdiction_rules",
+        "args": {
+          "jurisdiction": "EMEA"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_employee_record",
+      "get_jurisdiction_rules"
+    ],
+    "outcome_pass": true,
+    "answer": "Employee E008 may carry over 5 unused annual-leave days into next year, as per policy HR-207, section 3.2.",
+    "laps": 3,
+    "tokens": 2364,
+    "cost_usd": 0.001462,
+    "latency_ms": 4361.1,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q09",
+    "employee_id": "E009",
+    "question": "Employee E009 will be on sick leave for 10 consecutive days. What certification is required and what is the pay treatment?",
+    "trajectory": [
+      {
+        "name": "get_employee_record",
+        "args": {
+          "employee_id": "E009"
+        },
+        "blocked": false
+      },
+      {
+        "name": "get_jurisdiction_rules",
+        "args": {
+          "jurisdiction": "UK"
+        },
+        "blocked": false
+      },
+      {
+        "name": "search_handbook",
+        "args": {
+          "query": "sick leave certification",
+          "jurisdiction": "UK"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_employee_record",
+      "get_jurisdiction_rules",
+      "search_handbook"
+    ],
+    "outcome_pass": true,
+    "answer": "For a sick leave of 10 consecutive days, a Statement of Fitness for Work (GP Fit Note) is required, and the pay treatment is 100% salary for up to 4 weeks, as per policy HR-209, section 2.1.",
+    "laps": 3,
+    "tokens": 2771,
+    "cost_usd": 0.001951,
+    "latency_ms": 5978.9,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q10",
+    "employee_id": "E010",
+    "question": "How many fully paid personal-leave days is employee E010 entitled to this service year?",
+    "trajectory": [
+      {
+        "name": "get_employee_record",
+        "args": {
+          "employee_id": "E010"
+        },
+        "blocked": false
+      },
+      {
+        "name": "get_jurisdiction_rules",
+        "args": {
+          "jurisdiction": "ANZ"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_employee_record",
+      "get_jurisdiction_rules"
+    ],
+    "outcome_pass": true,
+    "answer": "Employee E010 is entitled to 12 fully paid personal-leave days this service year, as per policy HR-209, section 2.1.",
+    "laps": 3,
+    "tokens": 2418,
+    "cost_usd": 0.001555,
+    "latency_ms": 4200.8,
+    "stop_reason": "answered"
+  }
+]

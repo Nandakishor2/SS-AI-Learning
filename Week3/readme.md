@@ -73,12 +73,14 @@ The following matrix outlines the conceptual and architectural distinction betwe
 ## Project Directory Tree
 
 ```text
-Week4/
+Week3/
 ├── .env                       # API credentials (GEMINI_API_KEY)
 ├── INSTALLATION.md            # Environment setup & dual-week execution guide
 ├── readme.md                  # System overview, architecture & Week 3 vs Week 4 matrix
 ├── DEMO_GUIDE.md              # Live demo script, Q&A datasets & speaker talking points
 ├── results.md                 # Week 3 benchmark report (Hit@5, Filter demo, Citations, Refusals)
+├── bench_mark.py              # Week 3: 8-question Hit@5 benchmark, filtering demo & results.md generator
+├── rag_engine.py              # Week 3: Grounded synthesis, chunk_id citation & refusal engine
 ├── ask.py                     # Root CLI for interactive queries across all regional policies
 ├── data_drop/                 # 6 Regional leave policy PDF documents
 │   ├── HR-207_APAC.pdf        # Annual leave, probationary caps, accruals

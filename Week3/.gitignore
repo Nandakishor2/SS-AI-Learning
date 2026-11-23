@@ -1,0 +1,13 @@
+# secrets
+.env
+
+# local vector DB (rebuild with Services/injest.py)
+qdrant_storage/
+
+# python
+__pycache__/
+*.pyc
+venv/
+
+# macOS
+.DS_Store

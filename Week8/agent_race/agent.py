@@ -42,10 +42,26 @@ class RunResult:
 def run_agent(question: str,
               max_iters=MAX_ITERS, max_tokens=MAX_TOKENS,
               max_cost=MAX_COST_USD, wall_clock_s=WALL_CLOCK_S,
-              verbose=False) -> RunResult:
+              verbose=False, system_prompt=None, guard=None, gemini_tools=None,
+              dispatch=None) -> RunResult:
+    """Run the tool-calling loop.
+
+    Week 7 behaviour is the default (system_prompt=None -> questions.SYSTEM_PROMPT,
+    guard=None -> every requested tool call executes). Week 8 uses the two hooks:
+
+      system_prompt : swap the instruction (e.g. the permissive baseline under test).
+      guard(name, args, revealed) -> None to allow, or a dict RESULT to substitute
+            instead of executing the tool (the argument-validation MITIGATION). `revealed`
+            accumulates what the record lookups have legitimately disclosed this run, so a
+            guard can reject a jurisdiction the agent never looked up ("fluent fiction").
+    """
     tools.reset_counts()
     meter = Meter()
     log = []
+    revealed = {}             # state the guard reads: {"jurisdiction": ..., "employee_ids": [...]}
+    sp = system_prompt or SYSTEM_PROMPT
+    gt = gemini_tools if gemini_tools is not None else tools.GEMINI_TOOLS
+    dispatch = dispatch if dispatch is not None else tools.DISPATCH
     t0 = time.perf_counter()
     contents = [types.Content(role="user", parts=[types.Part(text=question)])]
     answer, stop_reason = "", "answered"
@@ -64,7 +80,7 @@ def run_agent(question: str,
             stop_reason = "budget:wall_clock"; break
 
         iters += 1
-        resp = generate(contents, SYSTEM_PROMPT, tools=tools.GEMINI_TOOLS)
+        resp = generate(contents, sp, tools=gt)
         lap_tokens, lap_cost = meter.add(resp.usage_metadata)
         cand = resp.candidates[0]
         parts = cand.content.parts or []
@@ -83,11 +99,21 @@ def run_agent(question: str,
         tool_result_parts, lap_calls = [], []
         for fc in fcs:
             args = dict(fc.args)
-            try:
-                result = tools.DISPATCH[fc.name](args)
-            except Exception as e:
-                result = {"error": str(e)}
-            lap_calls.append({"name": fc.name, "args": args})
+            blocked = guard(fc.name, args, revealed) if guard is not None else None
+            if blocked is not None:
+                # MITIGATION fired: do NOT execute the tool; feed the correction back.
+                result = blocked
+                lap_calls.append({"name": fc.name, "args": args, "blocked": True})
+            else:
+                try:
+                    result = dispatch[fc.name](args)
+                except Exception as e:
+                    result = {"error": str(e)}
+                lap_calls.append({"name": fc.name, "args": args})
+                # Record what a legitimate lookup disclosed, for the guard to read next lap.
+                if fc.name == "get_employee_record" and isinstance(result, dict) and result.get("jurisdiction"):
+                    revealed["jurisdiction"] = result["jurisdiction"]
+                    revealed.setdefault("employee_ids", []).append(args.get("employee_id"))
             tool_result_parts.append(
                 types.Part.from_function_response(name=fc.name, response={"result": result}))
         contents.append(types.Content(role="user", parts=tool_result_parts))

@@ -1,178 +1,168 @@
 <!-- Soft Suave · The AI Engineering League -->
-# Week 7 — Race the HR agent against a fixed workflow
+# Week 8 — Agent Failure Modes & Trajectory Evals
 
-> **Scope:** Week 7 · Module M4 (Agents). A direct extension of the HR-policy app.
-> The question this week: *the entitlement task runs fine as an agent loop — but does it
-> **need** to be an agent, or would three hard-coded steps be faster, cheaper and more
-> auditable?* We settle it with **four numbers per system**, not an opinion.
+> **Scope:** Week 8 · Module M4 (Agents). A direct extension of the Week-7 HR agent.
+> Week 7 asked *"does this task even need an agent?"*; **Week 8 asks *"the agent passes
+> its outcome eval and HR still doesn't trust it — is it reaching right answers down wrong
+> paths, and can it be tricked?"*** We grade the **trajectory** (the whole path), not just
+> the final answer.
 
-The headline is the **race table**: the same agent task re-implemented as a fixed workflow,
-run over the **same 10 employee questions**, compared on pass rate, p50 latency, tokens, and
-cost per question.
-
----
-
-## 1. Headline results — the race (8 numbers)
-
-| metric | AGENT (loop) | WORKFLOW (fixed) |
-|---|---|---|
-| pass rate | 100% (10/10) | 100% (10/10) |
-| p50 latency | 4404 ms | **1740 ms** |
-| total tokens (10 q) | 24,792 | **6,244** |
-| cost / question | $0.001630 | **$0.000695** |
-
-Agent costs **~2.3×** and runs **~2.5×** slower for the **same** pass rate. 8 of the 10
-questions branch on tenure/probation, yet the branch is a *fixed* shape, so hard-coded `if`
-beats the loop on every number. Full verdict: [`VERDICT.md`](VERDICT.md). Per-question
-breakdown: [`agent_race/race.csv`](agent_race/race.csv).
-
-> Numbers are a real live run against `gemini-2.5-flash`, cached in
-> `agent_race/.race_cache.json` so a grader can reproduce the table with **no API key**:
-> `python3.14 -m agent_race.race --offline`.
+The headline is the **outcome-vs-trajectory gap**: the agent can state the right figure
+*without ever reading the employee's record* — right by luck on the common case, wrong
+everywhere else. The eval exposes it as a number; one mitigation closes it, with the price
+measured.
 
 ---
 
-## 2. The commands (one each)
+## 1. Headline results
 
-> Needs `.env` with `GEMINI_API_KEY`. Use `python3.14`. The race is self-contained —
-> **no Docker / no Qdrant / no ingest** (the handbook is a local index, see §5).
+| metric (same 10 HR cases) | v0 control | v1 baseline | v2 mitigated |
+|---|---:|---:|---:|
+| tool-choice accuracy | 100% | **0%** | 80% |
+| argument validity rate | 100% | 100% | 100% |
+| step efficiency (taken/needed) | 1.05 | 0.50 | 1.30 |
+| cost/question p50 · MAX | $0.00162 · $0.00195 | $0.00072 · $0.00077 | $0.00234 · $0.00314 |
+| outcome pass rate | 100% | **20%** | 80% |
+| trajectory pass rate | 100% | **0%** | 80% |
+
+- **Gap (v1): 20 points** (20% outcome − 0% trajectory). Right-answer-wrong-path cases:
+  **Q01, Q07** — both answered from a fast-path cache, never reading the employee.
+- **Mitigation** (a record-first guard): top mode `skipped_lookup` **10 → 2**, outcome
+  **20% → 80%**, at a price of **+18,851 tokens / 10 q** and **+4,439 ms** p50 latency.
+
+Full write-up and the disagreement/residual analysis: [`TRAJECTORY_RESULTS.md`](TRAJECTORY_RESULTS.md).
+Per-question record: [`trajectory/trajectory_eval.csv`](trajectory/trajectory_eval.csv).
+
+> Numbers are one real live run against `gemini-2.5-flash`, cached in
+> `trajectory/.traj_cache_*.json` so a grader reproduces the whole table with **no API key**:
+> `python3.14 trajectory_eval.py --offline`.
+
+---
+
+## 2. The commands
+
+> Needs `.env` with `GEMINI_API_KEY`. Use `python3.14`. The eval is self-contained —
+> **no Docker / no Qdrant / no ingest** (the agent runs over a local index, as in Week 7).
 
 ```bash
-# THE RACE — both systems over the same 10 questions -> race.csv + the 8-number table
-python3.14 -m agent_race.race                 # live
-python3.14 -m agent_race.race --offline       # reproduce the table from cache, no API
+# THE TRAJECTORY EVAL — the four numbers, the gap, the mitigation, the regression table
+python3.14 trajectory_eval.py                 # live (runs v0/v1/v2, refreshes caches)
+python3.14 trajectory_eval.py --offline       # reproduce the whole report from cache, no API
 
-# Each system runnable ALONE (one command each)
-python3.14 -m agent_race.agent                # agent loop over all 10
-python3.14 -m agent_race.workflow             # fixed workflow over all 10
-python3.14 -m agent_race.agent "Employee E002 is taking primary-caregiver leave. How many weeks of fully paid leave are they entitled to?"
+# Capture one variant's raw trajectories alone
+python3.14 -m trajectory.capture v1_baseline  # v0_control | v1_baseline | v2_mitigated
 
-# Budget-termination demo — forces a clean stop, writes logs/budget_termination.log
-python3.14 -m agent_race.agent --demo-budget
-
-# Bonus — sliding window + summarisation + persistence across restart, on 3 long convos
-python3.14 -m agent_race.conversation
+# BONUS — indirect prompt injection: attack -> defend -> re-attack -> residual
+python3.14 -m trajectory.injection
+python3.14 -m trajectory.injection --offline
 ```
 
 ---
 
-## 3. How each Week-7 requirement is met
+## 3. How each Week-8 requirement is met
 
 | # | Requirement | Where |
 |---|---|---|
-| 1 | Third tool: one job, enum param, no description overlap | `agent_race/tools.py` → `get_jurisdiction_rules` (enum jurisdiction); diff in [`TOOL_DIFF.md`](TOOL_DIFF.md) |
-| 2 | Re-implement the task as a fixed workflow — same tools/model/output, no loop | `agent_race/workflow.py` (3 hard-coded steps, exactly one model call) |
-| 3 | Race over the same 10 Qs (≥3 input-branching), 4 numbers each | `agent_race/race.py` → `race.csv`; 8 of 10 branch (`questions.py`) |
-| 4 | All four budgets enforced + a clean budget-termination log | `agent_race/agent.py` (iters/tokens/cost/wall-clock checked every lap); `agent_race/logs/budget_termination.log` |
-| 5 | Verdict applying the decision rule, consistent with the numbers | [`VERDICT.md`](VERDICT.md) |
-| Bonus | Sliding window + summarisation + persist across restart; name a destroyed detail | `agent_race/conversation.py` |
+| 1 | Expected tool sequences for 10 cases; alternate valid paths asserted as a **set** | [`trajectory/expected.py`](trajectory/expected.py) — record-first, handbook before/after/instead accepted |
+| 2 | Four trajectory numbers (tool-choice, argument validity, step efficiency, cost **p50 & max**) | [`trajectory/score.py`](trajectory/score.py) + `trajectory_eval.py` |
+| 3 | Outcome-vs-trajectory **gap** as a number + one right-answer-wrong-path case with its path | §3 of `TRAJECTORY_RESULTS.md` (Q01/Q07, 20 pts) |
+| 4 | Exactly **ONE** mitigation to the top mode; before→after + the **price** as a number | `record_first_guard` in [`trajectory/variants.py`](trajectory/variants.py); `skipped_lookup` 10→2 |
+| 5 | Regression check: per-mode counts before/after, naming any mode worse/new | §5 of `TRAJECTORY_RESULTS.md` (none worse; residual `skipped_lookup` named) |
+| Bonus | Indirect injection, attacked then defended; what still gets through + cost | [`trajectory/injection.py`](trajectory/injection.py) |
 
-### The four budgets (all checked every lap, in `agent.py`)
-`MAX_ITERS=6` · `MAX_TOKENS=20000` · `MAX_COST_USD=0.02` · `WALL_CLOCK_S=30`.
-Each is tested **before** spending another model call; whichever trips first sets
-`stop_reason` and the loop returns cleanly. The demo tightens `MAX_ITERS=2` and logs the
-fire:
-
-```
-STOP_REASON: budget:max_iters   <-- budget that fired
-laps_used: 2/2   tokens_used: 1436   cost_used: $0.000902
-Loop terminated cleanly on the budget — it did NOT spin.
-```
-
-### Why tokens are summed per lap (not just the last call)
-The loop re-sends the whole growing message list every lap, so a question's token bill is
-the **sum over laps**. `llm.Meter.add()` accumulates `usage_metadata` on *every* call —
-counting only the final call would understate the agent by ~4× (6,244 → the real 24,792).
+### Why a seeded regression — stated honestly
+The vanilla Week-7 agent is **already clean**: probing it (even with vague descriptions and a
+free-text jurisdiction) shows it always reads the record first and passes a legal
+jurisdiction — so `v0_control` scores 100%/100% and there is **no natural gap**. A trajectory
+eval you cannot trip teaches nothing (the Week-6 lesson: validate your instrument). So we
+reproduce the **real, common production regression** the task is about — a latency-minded
+engineer bolts on a `get_quick_entitlement` fast-path cache and a prompt that prefers it —
+and show the eval catches what that "optimization" costs. The fix is a **mechanism** (the
+guard), never a prompt revert.
 
 ---
 
-## 4. The 10 questions & the branch
+## 4. The failure zoo (`trajectory/score.py`)
 
-Each names an employee by id but **not** their jurisdiction or tenure — those are discovered
-from the record, which is what forces the lookup→rules→branch path. `branching=True` means
-step 3 depends on what step 2 found (the entitlement figure is picked by the employee's
-tenure/probation band). See `agent_race/questions.py`.
+Each trajectory is classified into exactly one mode:
 
-| cases | class | branches on |
-|---|---|---|
-| Q01–Q03 | NA primary-caregiver leave | tenure band (<12 / 12–36 / >36 mo → 8 / 14 / 18 weeks) |
-| Q04–Q05 | LATAM primary-caregiver leave | tenure band (<6 / 6+ mo → 6 / 12 weeks) |
-| Q06–Q08 | APAC/EMEA carry-over cap | probation vs confirmed (→ 3 / 10 / 5 days) |
-| Q09 | UK sick certification | absence duration (10 days → GP Fit Note) |
-| Q10 | ANZ personal leave | service year (Year 2+ → 12 days) |
+| mode | what it means |
+|---|---|
+| `clean` | accepted path, real args, answered — trajectory PASS |
+| `skipped_lookup` | answered the entitlement **without reading the employee record** (the headline bug) |
+| `wrong_tool_order` | fetched the numbers **before** the record (jurisdiction guessed) |
+| `guessed_jurisdiction` | read the record, but a rules/handbook arg was fiction / mismatched |
+| `off_path` | right tools, but a shape outside the accepted set |
+| `redundant_steps` | clean path but ≥ 2× the needed steps (thrash / loop) |
+| `budget_terminated` | hit a budget and stopped (spun) |
 
 ---
 
 ## 5. Files — complete structure & purpose
 
-`★` = a Week-7 graded deliverable. The `agent_race/` package is **this week's work**;
-everything below the divider is the Week-5/6 app and evals left in place, unchanged.
+`★` = a Week-8 graded deliverable. The `trajectory/` package is **this week's work**;
+`agent_race/` (and `eval/`) below the divider are the Week-5/6/7 app and harness reused
+unchanged except for three backward-compatible hooks on `run_agent` (custom prompt, tool
+set, and a per-call `guard`).
 
 ```
-Week7/
+Week8/
 │
-├── agent_race/                     ★ WEEK-7 PACKAGE (agent vs workflow race)
-│   ├── agent.py                    ★ the AGENT: tool-calling loop; enforces all 4 budgets
-│   │                                 every lap; `--demo-budget` writes the termination log
-│   ├── workflow.py                 ★ the FIXED WORKFLOW: 3 hard-coded steps, same tools +
-│   │                                 model + output contract, ONE model call, no loop
-│   ├── race.py                     ★ runs both over the 10 Qs → race.csv + the 8-number
-│   │                                 table; `--offline` replays the cache (no API)
-│   ├── tools.py                    ★ the 3 tools + Gemini function schemas + jurisdiction
-│   │                                 enum; sharpened, non-overlapping descriptions
-│   ├── questions.py                   the 10 employee questions + expected figures + the
-│   │                                  shared system prompt / output contract
-│   ├── scoring.py                     deterministic pass gate (figure+unit & policy id);
-│   │                                  no LLM judge in the pass decision
-│   ├── llm.py                         shared Gemini call wrapper + Meter (per-lap token &
-│   │                                  cost accounting, pricing constants)
-│   ├── conversation.py             ★ BONUS: sliding window + summarisation + persist
-│   │                                  jurisdiction across a simulated process restart
-│   ├── data/
-│   │   ├── employees.json             10 employee records (jurisdiction, tier, hire_date)
-│   │   ├── jurisdiction_rules.json    structured leave numbers/bands per jurisdiction
-│   │   └── handbook.json              free-text passages search_handbook() searches locally
-│   ├── logs/
-│   │   └── budget_termination.log  ★ log of the run that hit a budget and stopped cleanly
-│   ├── race.csv                    ★ per-question results (8 numbers over the 10 Qs)
-│   ├── race_summary.json              machine-readable 8-number summary
-│   └── .race_cache.json               cached live answers → powers `--offline` reproduction
+├── trajectory_eval.py              ★ THE one command: four numbers + gap + mitigation
+│                                     before→after + per-mode regression table; --offline
+├── TRAJECTORY_RESULTS.md           ★ the write-up: numbers, the gap, the two RAWP cases,
+│                                     the mitigation & its price, the regression, the bonus
+├── trajectory/                     ★ WEEK-8 PACKAGE (trajectory evals)
+│   ├── expected.py                 ★ the 10 expected tool sequences (accepted as a SET)
+│   ├── score.py                    ★ per-trajectory scoring + the failure-zoo classifier
+│   ├── variants.py                 ★ v0 control / v1 fast-path regression / v2 + guard;
+│   │                                 the fast-path tool and the record-first MITIGATION
+│   ├── capture.py                    runs one variant over the 10 Qs, caches trajectories
+│   ├── injection.py                ★ BONUS: indirect prompt injection attack + defence
+│   ├── trajectory_eval.csv         ★ per-question record (path, modes, pass/fail, cost)
+│   ├── trajectory_report.json        machine-readable summary of the run
+│   ├── .traj_cache_v{0,1,2}*.json     cached live trajectories -> power --offline replay
+│   └── .injection_cache.json          cached injection transcript
 │
-├── TOOL_DIFF.md                    ★ third tool's description diff + enum + overlap check
-├── VERDICT.md                      ★ the verdict paragraph (<150 words), matches the table
+│  ── Week-7 foundation (the agent UNDER TEST; reused) ────────────────────────────
+├── agent_race/                       Week-7 agent vs workflow package; agent.py is the
+│   │                                 loop the trajectory eval drives (now with 3 optional
+│   │                                 hooks: system_prompt, gemini_tools, guard, dispatch)
+│   ├── agent.py  tools.py  questions.py  scoring.py  llm.py  workflow.py  race.py …
+│   └── data/                         employees / jurisdiction_rules / handbook (local index)
+├── VERDICT.md  TOOL_DIFF.md          Week-7 graded deliverables (agent-vs-workflow race)
+├── RESULTS.md                        Week-6 eval write-up (kept as foundation)
 │
-│  ── Week-5/6 app underneath (unchanged; the tools reuse its domain data) ─────────
-├── data_drop/                         the 7 regional HR policy PDFs (source of the rules)
-├── Services/                          Week-5 RAG app (ingest, retrievers, rag_engine)
-├── eval/                              Week-6 eval harness (run_eval, judge, assertions)
-├── Connection/gemini.py               original Gemini connection smoke-test
-├── ask.py                             Week-5 interactive RAG CLI entrypoint
-├── RESULTS.md / taxonomy.md / labels_25.json / judge_v*.txt / prediction.txt /
-│   agreement_*.txt                    Week-6 graded deliverables (kept for reproducibility)
-├── INSTALLATION.md                    environment setup (Qdrant is only needed for Week 5/6)
-├── requirements.txt                   deps (google-genai, qdrant-client, …)
-└── readme.md                          this file
+│  ── Week-5/6 foundation (unchanged) ────────────────────────────────────────────
+├── eval/                             Week-6 eval harness (run_eval, judge, assertions)
+├── taxonomy.md  labels_25.json  judge_v*.txt  prediction.txt  agreement_*.txt
+├── Services/  ask.py  Connection/    Week-5 RAG app
+├── INSTALLATION.md  requirements.txt  .env  .gitignore
+└── readme.md                         this file
 ```
 
 ---
 
-## 6. The verdict (one line; full in `VERDICT.md`)
+## 6. Common mistakes — and how this submission avoids them
 
-The path varies by **value** (tenure bands) but not by **shape** (always lookup → rules →
-branch), so hard-coded steps win on all four numbers at equal accuracy. **None of the 10
-forces an agent.** The class that would is **open-ended multi-hop**, where the number of
-lookups is unknown until intermediate results are read — only then does the loop earn its cost.
+- **Reporting the outcome eval only** → the gap (§3) is the headline; Q01/Q07 pass the
+  answer check and fail the path check, and we show the path.
+- **Over-asserting one exact tool sequence** → `expected.py` accepts the handbook
+  before/after/instead as a **set**; a correct non-canonical run is not a false failure.
+- **Shipping two mitigations at once** → exactly one change (the guard); v1 and v2 differ
+  in that mechanism alone, so the before→after is attributable.
+- **Calling the mitigation free** → its price is three real numbers: +18,851 tokens,
+  +$0.00162 cost/q p50, +4,439 ms p50 latency.
+- **Reporting mean cost** → cost is p50 **and** max; the mean would bury the re-plan spread.
+- **Fixing injection with a prompt** → defence is least-privilege (no write tool) +
+  sanitised read-only output + an output guardrail, and we name what still gets through.
 
 ---
 
-## 7. Common mistakes — and how this submission avoids them
+## 7. Foundation (unchanged Week-5/6/7 app)
 
-- **Racing on single-lookup questions the agent trivially wins** → 8 of 10 questions branch
-  on tenure/probation (`questions.py`), so the input mix includes the branching cases.
-- **Counting only the final call's tokens** → `Meter.add()` sums `usage_metadata` every lap.
-- **Declaring budgets but not checking them** → all four are tested every lap in `agent.py`,
-  with a log proving a clean fire.
-- **Fixing tool thrash via the system prompt** → fixed by sharpening the tool *descriptions*
-  (`TOOL_DIFF.md`), not by bolting "use the right tool" onto the prompt.
-- **A verdict that contradicts the table** → `VERDICT.md` ships the workflow, matching the
-  numbers (workflow ahead on latency/tokens/cost, tied on pass rate).
+6 regional leave-policy PDFs → structure-aware chunks in Qdrant → hybrid retrieval → Gemini
+2.5 Flash grounded generation (Weeks 5–6); the Week-7 agent answers entitlement questions
+over a local `employees / jurisdiction_rules / handbook` index with three tools. Week 8 adds
+only the trajectory eval and the injection harness on top; the agent's own tool behaviour is
+untouched.
