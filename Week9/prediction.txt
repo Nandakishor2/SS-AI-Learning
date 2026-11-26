@@ -1,0 +1,46 @@
+WEEK 6 — JUDGE ITERATION PREDICTION
+Written BEFORE building judge_v2 (after reading the v1 disagreements C02, C03, C17, C22).
+Committed before the iteration; git order is the proof.
+
+v1 agreement = 86.2% (25/29). The 4 disagreements split into two root causes:
+  (a) refusal adjudication — C02/C03 (judge PASS, human FAIL) and C17 (judge PASS, human FAIL);
+  (b) boundary understatement — C22 (judge PASS, human FAIL).
+
+PREDICTION (one sentence):
+Adding C17 (blind refusal to a region-ambiguous but answerable question) and C22 (a tenure
+boundary silently resolved to the lower band) as few-shot FAIL examples will flip the judge to
+FAIL on C17 and C22 and lift agreement to ~93% (27/29), while C02/C03 will and SHOULD stay PASS
+because there the judge is actually right — the retrieved context genuinely lacked the figure
+(a retrieval miss, not an answer error), so I will not train the judge to flip them.
+
+Falsifiable risks I am watching: the few-shot may over-generalize and (i) also flip C02/C03 to
+FAIL, or (ii) start failing the correct out-of-corpus refusals C23-C26, which would LOWER
+agreement instead of raising it; or (iii) not move C17 at all.
+
+-------------------------------------------------------------------------------
+OUTCOME (appended after the v2 run — git history shows this came after the prediction above):
+
+WRONG. The iteration moved agreement 86.2% -> 86.2% (delta +0.0). The few-shot
+flipped ZERO verdicts: the judge held PASS on BOTH C17 and C22 despite the FAIL
+worked-examples.
+
+Where the prediction was wrong, specifically:
+  1. I predicted C17 and C22 would flip to FAIL and lift agreement to ~93%. Neither
+     flipped. The judge's reading is robust to a single few-shot: on C22 it still
+     says "36 months falls squarely in the 12-36 band" (a literal, defensible read);
+     on C17 it still treats the UK-pay-only context as not containing a sick-day
+     count.
+  2. The deeper error: I framed these as JUDGE mistakes to fix. On re-reading the
+     retrieved context, the judge is arguably RIGHT on C02, C03 and C17 — my BLIND
+     labels judged against the whole corpus, but the judge (correctly) judges against
+     the RETRIEVED context, which genuinely lacked the figure (C02/C03) or any
+     sick-day count (C17). So three of the four "disagreements" are over-strict
+     labels, not judge errors — and the v2 counter-example actually REINFORCED the
+     judge's correct refusal reasoning (its v2 reasons now say "retrieved context
+     genuinely lacks the figure").
+  3. What I got right: C02/C03 stayed PASS, as predicted and as they should.
+
+Honest conclusion: the judge is MORE trustworthy than the flat 86% implies. The real
+bug the eval surfaced is RETRIEVAL (the NA eligibility matrix is not retrieved for
+C02/C03), not the answer and not the judge. Full adjudication in RESULTS.md.
+

@@ -168,7 +168,9 @@ Week6/
 │                               eval case is tagged with. The bridge from Week 5 to Week 6.
 ├── traces/traces.jsonl       Real Week-5 production traces — the source the regression
 │                               cases (C01, C17, C20, C22, C27) are replayed verbatim from.
-├── ask.py                    Root entry point to ask the assistant a question.
+├── ask.py                    Root entry point to ask the assistant a question. Week 6
+│                               also prints a live QUALITY CHECK panel per answer (same
+│                               judge + assertions as the eval harness) — see Services/live_judge.py.
 ├── Connection/gemini.py      Gemini client / API-key wiring.
 ├── Services/
 │   ├── injest.py             Ingest: PDFs → structure-aware chunks → embeddings → Qdrant.
@@ -176,7 +178,15 @@ Week6/
 │   ├── hybrid_retriever.py   Hybrid retrieval: dense (gemini-embedding) + BM25, fused by RRF.
 │   ├── rag_engine.py         The RAG core: retrieve → build grounded prompt → generate
 │   │                           cited answer (answer_query is what the eval calls).
-│   ├── ask.py                Interactive CLI loop over the RAG engine.
+│   ├── ask.py                Interactive CLI loop over the RAG engine. Week 6: after each
+│   │                           answer it runs the live judge panel (--no-judge to skip,
+│   │                           --judge-version v1|v2 to pick the prompt).
+│   ├── live_judge.py         ★ Week-6 add-on: wires the SAME eval judge + deterministic
+│   │                           assertions into the interactive path, so an asker sees the
+│   │                           PASS/FAIL verdict + the refusal / instruction-drift check live.
+│   ├── usage_meter.py        ★ Week-6 add-on: meters the answer+judge calls (same prices
+│   │                           as Week 7, for the before/after) and powers `--validate`,
+│   │                           which proves a refusal is a retrieval gap (top_k=3 vs 10).
 │   ├── trace_logger.py       Week-5 trace logging + PII redaction.
 │   └── generate_traces.py    Week-5 script that produced the real trace population.
 └── data_drop/                The 6 regional leave-policy PDFs (HR-207/208/209 ×
@@ -192,8 +202,10 @@ Week6/
 
 6 regional leave-policy PDFs → structure-aware chunks (28) in Qdrant → Hybrid
 retrieval (dense `gemini-embedding-001` + BM25, RRF k=60) → Gemini 2.5 Flash grounded
-generation with strict citations and a refusal guardrail. Week 6 adds only the eval
-harness on top; the app code is untouched.
+generation with strict citations and a refusal guardrail. Week 6 adds the eval harness
+on top; the RAG core (`rag_engine.py`, retrieval, chunking) is untouched. The one change
+inside the app is `ask.py`, which now calls `Services/live_judge.py` to show the judge
+verdict live — it reuses the eval graders, it does not re-implement them.
 
 
 "I'm in Toronto and just had a baby as the primary caregiver with 3 years in — how many weeks paid and any unpaid extension?"

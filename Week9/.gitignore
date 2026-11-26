@@ -1,0 +1,21 @@
+# secrets
+.env
+
+# local vector DB (rebuild with Services/injest.py)
+qdrant_storage/
+
+# python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# per-process agent session state is regenerated on each run (Week-7 bonus)
+agent_race/.session_state.json
+
+# Week-8 trajectory caches (.traj_cache_*, .injection_cache) are COMMITTED on purpose:
+# they power `trajectory_eval.py --offline` reproduction with no API key.
+
+# Week-9 MCP run caches (.mcp_cache*.json) are COMMITTED on purpose too:
+# they power `mcp_layer/run_mcp_agent.py --offline` with no API key.

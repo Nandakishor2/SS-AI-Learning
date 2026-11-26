@@ -1,0 +1,31 @@
+variant,qid,name_seq,read_record,args_valid,seq_valid,trajectory_pass,outcome_pass,right_answer_wrong_path,mode,steps_taken,steps_needed,tokens,cost_usd,latency_ms,stop_reason
+v0_control,Q01,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,2,2,2517,0.001655,5925.0,answered
+v0_control,Q02,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,2,2,2520,0.001662,4468.6,answered
+v0_control,Q03,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,2,2,2522,0.001663,5247.1,answered
+v0_control,Q04,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,2,2,2401,0.001497,4336.2,answered
+v0_control,Q05,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,2,2,2425,0.001548,4606.5,answered
+v0_control,Q06,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,2,2,2513,0.001715,4728.7,answered
+v0_control,Q07,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,2,2,2463,0.001582,4581.6,answered
+v0_control,Q08,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,2,2,2364,0.001462,4361.1,answered
+v0_control,Q09,get_employee_record -> get_jurisdiction_rules -> search_handbook,True,True,True,True,True,False,clean,3,2,2771,0.001951,5978.9,answered
+v0_control,Q10,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,2,2,2418,0.001555,4200.8,answered
+v1_baseline,Q01,get_quick_entitlement,False,True,False,False,True,True,skipped_lookup,1,2,1413,0.000694,4890.7,answered
+v1_baseline,Q02,get_quick_entitlement,False,True,False,False,False,False,skipped_lookup,1,2,1441,0.000764,2460.0,answered
+v1_baseline,Q03,get_quick_entitlement,False,True,False,False,False,False,skipped_lookup,1,2,1419,0.000709,2989.5,answered
+v1_baseline,Q04,get_quick_entitlement,False,True,False,False,False,False,skipped_lookup,1,2,1415,0.000699,2383.9,answered
+v1_baseline,Q05,get_quick_entitlement,False,True,False,False,False,False,skipped_lookup,1,2,1445,0.000774,2960.2,answered
+v1_baseline,Q06,get_quick_entitlement,False,True,False,False,False,False,skipped_lookup,1,2,1414,0.00073,3500.8,answered
+v1_baseline,Q07,get_quick_entitlement,False,True,False,False,True,True,skipped_lookup,1,2,1429,0.000767,2477.1,answered
+v1_baseline,Q08,get_quick_entitlement,False,True,False,False,False,False,skipped_lookup,1,2,1425,0.000757,2514.2,answered
+v1_baseline,Q09,get_quick_entitlement,False,True,False,False,False,False,skipped_lookup,1,2,1431,0.000715,2890.8,answered
+v1_baseline,Q10,get_quick_entitlement,False,True,False,False,False,False,skipped_lookup,1,2,1410,0.000713,2444.7,answered
+v2_mitigated,Q01,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,3,2,3705,0.002328,7934.6,answered
+v2_mitigated,Q02,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,3,2,3834,0.002651,7789.4,answered
+v2_mitigated,Q03,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,3,2,3744,0.002421,7205.3,answered
+v2_mitigated,Q04,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,3,2,3753,0.002426,6728.1,answered
+v2_mitigated,Q05,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,3,2,3623,0.002246,6476.2,answered
+v2_mitigated,Q06,,False,True,False,False,False,False,skipped_lookup,1,2,1547,0.001012,3086.3,answered
+v2_mitigated,Q07,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,3,2,4074,0.003136,9612.6,answered
+v2_mitigated,Q08,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,3,2,3587,0.002249,7412.4,answered
+v2_mitigated,Q09,,False,True,False,False,False,False,skipped_lookup,1,2,1578,0.001048,3615.2,answered
+v2_mitigated,Q10,get_employee_record -> get_jurisdiction_rules,True,True,True,True,True,False,clean,3,2,3648,0.002351,7078.1,answered

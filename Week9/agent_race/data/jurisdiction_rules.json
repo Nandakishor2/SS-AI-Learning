@@ -1,0 +1,56 @@
+{
+  "_comment": "Structured numeric leave parameters per jurisdiction, transcribed from the data_drop/ handbook addenda. get_jurisdiction_rules() returns one block by jurisdiction enum. The *_bands arrays are what make the answer path depend on the employee's tenure.",
+  "rules": {
+    "NA": {
+      "jurisdiction": "NA", "policy_id": "HR-208", "section": "2.1", "effective_date": "2026-01-15",
+      "domain": "primary_caregiver_leave", "probation_months": 12,
+      "tenure_bands": [
+        {"label": "Early Stage", "min_months": 0,  "max_months": 12,   "paid_weeks": 8,  "unpaid_weeks": 4},
+        {"label": "Standard",    "min_months": 12, "max_months": 36,   "paid_weeks": 14, "unpaid_weeks": 6},
+        {"label": "Senior",      "min_months": 36, "max_months": null, "paid_weeks": 18, "unpaid_weeks": 8}
+      ]
+    },
+    "LATAM": {
+      "jurisdiction": "LATAM", "policy_id": "HR-208", "section": "2.1", "effective_date": "2026-03-01",
+      "domain": "primary_caregiver_leave", "probation_months": 6,
+      "tenure_bands": [
+        {"label": "Category A", "min_months": 0, "max_months": 6,    "paid_weeks": 6},
+        {"label": "Category B", "min_months": 6, "max_months": null, "paid_weeks": 12}
+      ]
+    },
+    "APAC": {
+      "jurisdiction": "APAC", "policy_id": "HR-207", "section": "3.2", "effective_date": "2026-01-01",
+      "domain": "carryover_cap", "probation_months": 6,
+      "tenure_bands": [
+        {"label": "Tier 1 probation", "status": "probation", "tier": "Tier 1", "max_months": 6,    "carryover_cap_days": 3},
+        {"label": "Tier 2 probation", "status": "probation", "tier": "Tier 2", "max_months": 6,    "carryover_cap_days": 5},
+        {"label": "Confirmed",        "status": "confirmed", "tier": "any",    "min_months": 6,    "carryover_cap_days": 10}
+      ]
+    },
+    "EMEA": {
+      "jurisdiction": "EMEA", "policy_id": "HR-207", "section": "3.2", "effective_date": "2026-02-01",
+      "domain": "carryover_cap", "probation_months": 6,
+      "tenure_bands": [
+        {"label": "Probation", "status": "probation", "max_months": 6,    "carryover_cap_days": 0},
+        {"label": "Confirmed", "status": "confirmed", "min_months": 6,    "carryover_cap_days": 5}
+      ]
+    },
+    "UK": {
+      "jurisdiction": "UK", "policy_id": "HR-209", "section": "2.1", "effective_date": "2026-01-01",
+      "domain": "sick_certification", "probation_months": 0,
+      "absence_bands": [
+        {"min_days": 1, "max_days": 3,    "certification": "Self-certification",                       "pay": "100% salary"},
+        {"min_days": 4, "max_days": 7,    "certification": "Self-certification",                       "pay": "100% salary"},
+        {"min_days": 8, "max_days": null, "certification": "Statement of Fitness for Work (GP Fit Note)", "pay": "100% for up to 4 weeks, then 50% for the next 8 weeks"}
+      ]
+    },
+    "ANZ": {
+      "jurisdiction": "ANZ", "policy_id": "HR-209", "section": "2.1", "effective_date": "2026-04-01",
+      "domain": "personal_leave", "probation_months": 0,
+      "tenure_bands": [
+        {"label": "Year 1",  "min_months": 0,  "max_months": 12,   "personal_leave_days": 10, "carer_cap_days": 5},
+        {"label": "Year 2+", "min_months": 12, "max_months": null, "personal_leave_days": 12, "carer_cap_days": 8}
+      ]
+    }
+  }
+}

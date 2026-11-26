@@ -1,0 +1,139 @@
+{
+  "mode": "hris_only",
+  "discovered_tools": [
+    "get_employee_record"
+  ],
+  "pass_rate": 0.0,
+  "rows": [
+    {
+      "id": "Q01",
+      "pass": false,
+      "laps": 3,
+      "tokens": 1416,
+      "cost": 0.001232,
+      "ms": 4526,
+      "tool_calls": {
+        "get_employee_record": 1
+      },
+      "answer": "I am unable to retrieve the leave entitlements for employee E001 because the jurisdiction rules for \"NA\" could not be found. Please verify the jurisdiction or contact support.",
+      "stop": "answered"
+    },
+    {
+      "id": "Q02",
+      "pass": false,
+      "laps": 3,
+      "tokens": 2012,
+      "cost": 0.002722,
+      "ms": 6886,
+      "tool_calls": {
+        "get_employee_record": 1
+      },
+      "answer": "I am unable to determine the number of weeks of fully paid leave for primary-caregiver leave. I can retrieve employee records, but I do not have access to the jurisdiction's leave policies or rules to calculate the entitlement.",
+      "stop": "answered"
+    },
+    {
+      "id": "Q03",
+      "pass": false,
+      "laps": 3,
+      "tokens": 1550,
+      "cost": 0.001563,
+      "ms": 4791,
+      "tool_calls": {
+        "get_employee_record": 1
+      },
+      "answer": "I am unable to determine the amount of fully paid leave for employee E003 as the jurisdiction rules for \"NA\" could not be retrieved.",
+      "stop": "answered"
+    },
+    {
+      "id": "Q04",
+      "pass": false,
+      "laps": 3,
+      "tokens": 1529,
+      "cost": 0.001512,
+      "ms": 4916,
+      "tool_calls": {
+        "get_employee_record": 1
+      },
+      "answer": "I am unable to retrieve the leave entitlements for E004 as the jurisdiction rules for LATAM could not be accessed.",
+      "stop": "answered"
+    },
+    {
+      "id": "Q05",
+      "pass": false,
+      "laps": 2,
+      "tokens": 840,
+      "cost": 0.000705,
+      "ms": 2539,
+      "tool_calls": {
+        "get_employee_record": 1
+      },
+      "answer": "I need to know the LATAM jurisdiction rules for primary caregiver leave. I will use the `get_jurisdiction_rules` tool for this.\n",
+      "stop": "answered"
+    },
+    {
+      "id": "Q06",
+      "pass": false,
+      "laps": 2,
+      "tokens": 917,
+      "cost": 0.000951,
+      "ms": 3081,
+      "tool_calls": {
+        "get_employee_record": 1
+      },
+      "answer": "I need to know the annual leave carry-over rules for APAC. I will use the `get_jurisdiction_rules` tool to find this information. However, the available tools do not include `get_jurisdiction_rules` or `search_handbook`. I only have `get_employee_record`. Therefore, I cannot answer the question about annual leave carry-over limits.",
+      "stop": "answered"
+    },
+    {
+      "id": "Q07",
+      "pass": false,
+      "laps": 4,
+      "tokens": 1872,
+      "cost": 0.001448,
+      "ms": 5295,
+      "tool_calls": {
+        "get_employee_record": 1
+      },
+      "answer": "I am unable to retrieve the annual leave carry-over policy for employee E007's jurisdiction at this time. Please try again later or contact HR directly.",
+      "stop": "answered"
+    },
+    {
+      "id": "Q08",
+      "pass": false,
+      "laps": 5,
+      "tokens": 2761,
+      "cost": 0.002254,
+      "ms": 7285,
+      "tool_calls": {
+        "get_employee_record": 1
+      },
+      "answer": "I am unable to retrieve the necessary policy information regarding annual leave carry-over for EMEA due to an issue with the available tools. Therefore, I cannot determine how many unused annual-leave days employee E008 may carry over.",
+      "stop": "answered"
+    },
+    {
+      "id": "Q09",
+      "pass": false,
+      "laps": 4,
+      "tokens": 2540,
+      "cost": 0.00298,
+      "ms": 8118,
+      "tool_calls": {
+        "get_employee_record": 1
+      },
+      "answer": "I am unable to retrieve the sick leave policy for the UK jurisdiction using the available tools. Therefore, I cannot determine the required certification or pay treatment for employee E009's sick leave.",
+      "stop": "answered"
+    },
+    {
+      "id": "Q10",
+      "pass": false,
+      "laps": 2,
+      "tokens": 1243,
+      "cost": 0.001759,
+      "ms": 4608,
+      "tool_calls": {
+        "get_employee_record": 1
+      },
+      "answer": "I cannot determine the number of fully paid personal-leave days as I do not have access to the policy rules for the ANZ jurisdiction.",
+      "stop": "answered"
+    }
+  ]
+}

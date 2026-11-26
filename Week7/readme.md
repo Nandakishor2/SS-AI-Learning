@@ -141,12 +141,17 @@ Week7/
 ├── TOOL_DIFF.md                    ★ third tool's description diff + enum + overlap check
 ├── VERDICT.md                      ★ the verdict paragraph (<150 words), matches the table
 │
-│  ── Week-5/6 app underneath (unchanged; the tools reuse its domain data) ─────────
+│  ── Week-5/6 app underneath (RAG core unchanged; the tools reuse its domain data) ──
 ├── data_drop/                         the 7 regional HR policy PDFs (source of the rules)
 ├── Services/                          Week-5 RAG app (ingest, retrievers, rag_engine)
+│   └── metered_rag.py              ★ Week-7 add-on: metered answer paths for ask.py —
+│                                      answer_direct (1 call) vs answer_roundabout (3-lap
+│                                      loop), both metered with agent_race's Meter + prices.
 ├── eval/                              Week-6 eval harness (run_eval, judge, assertions)
 ├── Connection/gemini.py               original Gemini connection smoke-test
-├── ask.py                             Week-5 interactive RAG CLI entrypoint
+├── ask.py                             interactive RAG CLI. Week 7: shows real token/cost
+│                                      per answer, and `--compare` races roundabout-vs-direct
+│                                      live so the cost reduction is visible per question.
 ├── RESULTS.md / taxonomy.md / labels_25.json / judge_v*.txt / prediction.txt /
 │   agreement_*.txt                    Week-6 graded deliverables (kept for reproducibility)
 ├── INSTALLATION.md                    environment setup (Qdrant is only needed for Week 5/6)

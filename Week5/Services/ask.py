@@ -46,6 +46,14 @@ def process_question(question: str, retriever: str = "hybrid"):
     print(result["answer"])
     print("-" * 65)
 
+    # ── WEEK 5 marker ──────────────────────────────────────────────────────
+    # Baseline: the assistant answers, and that is ALL it can tell you. There is
+    # no signal here about whether that answer is correct, and no idea what it
+    # cost. Those two blind spots are exactly what Weeks 6 and 7 add.
+    print("\n🟫 WEEK 5 · BASELINE — answer only.")
+    print("   ❓ Is this answer trustworthy?  → unknown (no grader) ...... added in WEEK 6")
+    print("   ❓ What did this answer cost?    → unknown (no metering) .... added in WEEK 7")
+
 def interactive_loop(retriever: str = "hybrid"):
     print_banner(retriever)
     while True:

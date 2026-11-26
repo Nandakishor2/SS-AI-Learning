@@ -3,13 +3,17 @@ import sys
 from pathlib import Path
 from dotenv import load_dotenv
 from google import genai
+from google.genai import types
 from qdrant_client import QdrantClient
 from qdrant_client.models import Filter, FieldCondition, MatchValue
 
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 load_dotenv()
 
-client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
+client = genai.Client(
+    api_key=os.environ.get("GEMINI_API_KEY"),
+    http_options=types.HttpOptions(api_version="v1beta"),  # system_instruction needs v1beta, not v1
+)
 qdrant_client = QdrantClient(url="http://localhost:6333", check_compatibility=False)
 
 # Model + generation params are named here so the SAME values are stamped onto

@@ -5,7 +5,10 @@ from pathlib import Path
 # Add project root to sys.path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
-from Services.rag_engine import answer_query
+from Services.rag_engine import retrieve_context
+from Services.metered_rag import (
+    answer_direct, answer_roundabout, print_cost, print_comparison,
+)
 
 RETRIEVER_LABELS = {
     "cosine": "Dense Cosine (semantic / meaning-based)",
@@ -21,32 +24,44 @@ def print_banner(retriever: str):
     print("Ask any question across all regional leave policy documents.")
     print("Type 'exit' or 'q' anytime to quit.\n")
 
-def process_question(question: str, retriever: str = "hybrid"):
+def process_question(question: str, retriever: str = "hybrid", compare: bool = False):
     print("\n" + "-" * 65)
     print(f"🔎 Searching across all regional policies  [retriever: {retriever}]...")
     print("-" * 65)
 
-    # Unrestricted query across all documents
-    result = answer_query(question, region=None, retriever=retriever)
+    # Retrieve once; both answer strategies reuse the IDENTICAL context so the
+    # only variable in the cost comparison is how many model calls are made.
+    contexts = retrieve_context(question, region=None, top_k=3, retriever=retriever)
+    top_sources = [(c["chunk_id"], c["policy_id"], c["region"]) for c in contexts]
 
     print("\n📚 RETRIEVED SOURCES:")
-    if result.get("top_sources"):
-        for i, source in enumerate(result["top_sources"], 1):
-            if len(source) == 3:
-                chunk_id, policy, reg = source
-                print(f"   [{i}] Chunk: {chunk_id} | Policy: {policy} | Region: {reg}")
-            else:
-                policy, reg = source
-                print(f"   [{i}] Policy: {policy} | Region: {reg}")
+    if top_sources:
+        for i, (chunk_id, policy, reg) in enumerate(top_sources, 1):
+            print(f"   [{i}] Chunk: {chunk_id} | Policy: {policy} | Region: {reg}")
     else:
         print("   No matching source chunks found.")
-        
-    print("\n💬 ASSISTANT ANSWER:")
-    print("-" * 65)
-    print(result["answer"])
-    print("-" * 65)
 
-def interactive_loop(retriever: str = "hybrid"):
+    if compare:
+        # Before -> after: answer the SAME question both ways, meter each.
+        print("\n⏳ Running roundabout agent (3 laps) then direct workflow (1 call)...")
+        round_answer, round_meter = answer_roundabout(question, contexts)
+        direct_answer, direct_meter = answer_direct(question, contexts)
+
+        print("\n💬 ASSISTANT ANSWER (direct workflow):")
+        print("-" * 65)
+        print(direct_answer)
+        print("-" * 65)
+        print_comparison(round_meter, direct_meter)
+    else:
+        # Default: the single metered call ask.py should always have shown.
+        answer, meter = answer_direct(question, contexts)
+        print("\n💬 ASSISTANT ANSWER:")
+        print("-" * 65)
+        print(answer)
+        print("-" * 65)
+        print_cost(meter, label="direct workflow — 1 call")
+
+def interactive_loop(retriever: str = "hybrid", compare: bool = False):
     print_banner(retriever)
     while True:
         try:
@@ -60,7 +75,7 @@ def interactive_loop(retriever: str = "hybrid"):
                 print("\nGoodbye!\n")
                 break
 
-            process_question(question, retriever=retriever)
+            process_question(question, retriever=retriever, compare=compare)
 
         except KeyboardInterrupt:
             print("\n\nSession ended by user. Goodbye!\n")
@@ -77,13 +92,18 @@ def main():
         default="hybrid",
         help="Retrieval method: cosine (dense only), bm25 (lexical only), or hybrid (BM25+Dense RRF, default)",
     )
+    parser.add_argument(
+        "--compare", action="store_true",
+        help="Answer the same question two ways (roundabout agent vs direct workflow) "
+             "and print the measured token/cost reduction.",
+    )
 
     args = parser.parse_args()
 
     if args.question:
-        process_question(args.question, retriever=args.retriever)
+        process_question(args.question, retriever=args.retriever, compare=args.compare)
     else:
-        interactive_loop(retriever=args.retriever)
+        interactive_loop(retriever=args.retriever, compare=args.compare)
 
 if __name__ == "__main__":
     main()

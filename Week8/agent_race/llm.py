@@ -24,7 +24,10 @@ TEMPERATURE = 0.0
 PRICE_IN_PER_M = 0.30
 PRICE_OUT_PER_M = 2.50
 
-_client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
+_client = genai.Client(
+    api_key=os.environ.get("GEMINI_API_KEY"),
+    http_options=types.HttpOptions(api_version="v1beta"),  # system_instruction needs v1beta, not v1
+)
 
 
 @dataclass

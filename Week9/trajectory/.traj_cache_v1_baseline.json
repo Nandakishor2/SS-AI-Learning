@@ -1,0 +1,242 @@
+[
+  {
+    "qid": "Q01",
+    "employee_id": "E001",
+    "question": "Employee E001 is taking primary-caregiver leave. How many weeks of fully paid leave are they entitled to?",
+    "trajectory": [
+      {
+        "name": "get_quick_entitlement",
+        "args": {
+          "leave_type": "primary_caregiver"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_quick_entitlement"
+    ],
+    "outcome_pass": true,
+    "answer": "Employees are entitled to 8 weeks of fully paid primary caregiver leave, as per policy HR-208.",
+    "laps": 2,
+    "tokens": 1413,
+    "cost_usd": 0.000694,
+    "latency_ms": 4890.7,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q02",
+    "employee_id": "E002",
+    "question": "Employee E002 is taking primary-caregiver leave. How many weeks of fully paid leave are they entitled to?",
+    "trajectory": [
+      {
+        "name": "get_quick_entitlement",
+        "args": {
+          "leave_type": "primary_caregiver"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_quick_entitlement"
+    ],
+    "outcome_pass": false,
+    "answer": "Employees are entitled to 8 weeks of fully paid primary caregiver leave, as per policy HR-208.",
+    "laps": 2,
+    "tokens": 1441,
+    "cost_usd": 0.000764,
+    "latency_ms": 2460.0,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q03",
+    "employee_id": "E003",
+    "question": "Employee E003 is taking primary-caregiver leave. How many weeks of fully paid leave are they entitled to?",
+    "trajectory": [
+      {
+        "name": "get_quick_entitlement",
+        "args": {
+          "leave_type": "primary_caregiver"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_quick_entitlement"
+    ],
+    "outcome_pass": false,
+    "answer": "Employees are entitled to 8 weeks of fully paid primary caregiver leave, as per policy HR-208.",
+    "laps": 2,
+    "tokens": 1419,
+    "cost_usd": 0.000709,
+    "latency_ms": 2989.5,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q04",
+    "employee_id": "E004",
+    "question": "Employee E004 is taking primary-caregiver leave. How many weeks of fully paid leave are they entitled to?",
+    "trajectory": [
+      {
+        "name": "get_quick_entitlement",
+        "args": {
+          "leave_type": "primary_caregiver"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_quick_entitlement"
+    ],
+    "outcome_pass": false,
+    "answer": "Employees are entitled to 8 weeks of fully paid primary caregiver leave, as per policy HR-208.",
+    "laps": 2,
+    "tokens": 1415,
+    "cost_usd": 0.000699,
+    "latency_ms": 2383.9,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q05",
+    "employee_id": "E005",
+    "question": "Employee E005 is taking primary-caregiver leave. How many weeks of fully paid leave are they entitled to?",
+    "trajectory": [
+      {
+        "name": "get_quick_entitlement",
+        "args": {
+          "leave_type": "primary_caregiver"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_quick_entitlement"
+    ],
+    "outcome_pass": false,
+    "answer": "Employees are entitled to 8 weeks of fully paid primary caregiver leave, as per policy HR-208.",
+    "laps": 2,
+    "tokens": 1445,
+    "cost_usd": 0.000774,
+    "latency_ms": 2960.2,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q06",
+    "employee_id": "E006",
+    "question": "How many unused annual-leave days may employee E006 carry over into next year?",
+    "trajectory": [
+      {
+        "name": "get_quick_entitlement",
+        "args": {
+          "leave_type": "carryover"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_quick_entitlement"
+    ],
+    "outcome_pass": false,
+    "answer": "Employees may carry over 10 unused annual-leave days into next year, according to policy HR-207.",
+    "laps": 2,
+    "tokens": 1414,
+    "cost_usd": 0.00073,
+    "latency_ms": 3500.8,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q07",
+    "employee_id": "E007",
+    "question": "How many unused annual-leave days may employee E007 carry over into next year?",
+    "trajectory": [
+      {
+        "name": "get_quick_entitlement",
+        "args": {
+          "leave_type": "carryover"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_quick_entitlement"
+    ],
+    "outcome_pass": true,
+    "answer": "Employees may carry over 10 unused annual-leave days into next year, as per policy HR-207.",
+    "laps": 2,
+    "tokens": 1429,
+    "cost_usd": 0.000767,
+    "latency_ms": 2477.1,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q08",
+    "employee_id": "E008",
+    "question": "How many unused annual-leave days may employee E008 carry over into next year?",
+    "trajectory": [
+      {
+        "name": "get_quick_entitlement",
+        "args": {
+          "leave_type": "carryover"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_quick_entitlement"
+    ],
+    "outcome_pass": false,
+    "answer": "Employees may carry over 10 unused annual-leave days into next year, as per policy HR-207.",
+    "laps": 2,
+    "tokens": 1425,
+    "cost_usd": 0.000757,
+    "latency_ms": 2514.2,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q09",
+    "employee_id": "E009",
+    "question": "Employee E009 will be on sick leave for 10 consecutive days. What certification is required and what is the pay treatment?",
+    "trajectory": [
+      {
+        "name": "get_quick_entitlement",
+        "args": {
+          "leave_type": "sick_certification"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_quick_entitlement"
+    ],
+    "outcome_pass": false,
+    "answer": "For sick leave up to 10 consecutive days, self-certification is required, and the pay treatment is 100% salary, as per policy HR-209.",
+    "laps": 2,
+    "tokens": 1431,
+    "cost_usd": 0.000715,
+    "latency_ms": 2890.8,
+    "stop_reason": "answered"
+  },
+  {
+    "qid": "Q10",
+    "employee_id": "E010",
+    "question": "How many fully paid personal-leave days is employee E010 entitled to this service year?",
+    "trajectory": [
+      {
+        "name": "get_quick_entitlement",
+        "args": {
+          "leave_type": "personal_leave"
+        },
+        "blocked": false
+      }
+    ],
+    "tool_name_seq": [
+      "get_quick_entitlement"
+    ],
+    "outcome_pass": false,
+    "answer": "Employees are entitled to 10 fully paid personal-leave days this service year, as per policy HR-209.",
+    "laps": 2,
+    "tokens": 1410,
+    "cost_usd": 0.000713,
+    "latency_ms": 2444.7,
+    "stop_reason": "answered"
+  }
+]
